@@ -4,11 +4,10 @@
 {% block content %}
 <div class="card text-center w-50 mx-auto border-danger">
     <div class="card-header text-center">
-        <h3 class="px-4">Delete To-do Item</h3>
+        <h3 class="px-4">Delete Bug</h3>
     </div>
 
-    <p class="px-4">Are you sure you want to delete the item: <b>{{ object.title }}</b>
-       from the list <i>{{ todo_list.title }}</i>?</p>
+    <p class="px-4">Are you sure you want to delete the item: <b>{{ object.title }}</b>?</p>
 
     <form method="POST" class="px-4">
         {% csrf_token %}
@@ -21,7 +20,7 @@
             value="Cancel"
             type="button"
             class="btn btn-danger"
-            onclick="location.href='{% url "list" todo_list.id %}';">
+            onclick="location.href='{% url "project" object.project_id %}';">
     </form>
 </div>
 

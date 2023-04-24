@@ -60,4 +60,9 @@ urlpatterns = [
         views.BugDelete.as_view(),
         name="bug-delete",
     ),
+    path(
+        "bugs",
+        views.AssignedBugListView.as_view(),
+        name="assigned-bugs",
+    ),
     ]

@@ -145,3 +145,15 @@ class BugDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         return context
+
+class AssignedBugListView(LoginRequiredMixin, ListView):
+    model = BugItem
+    template_name = "tracker_app/assignedbug_list.html"
+
+    def get_queryset(self):
+        return BugItem.objects.filter(assignee=self.request.user)
+
+    def get_context_data(self):
+        context = super().get_context_data()
+        #context["project"] = BugItem.objects.get(id=self.kwargs["project_id"])
+        return context

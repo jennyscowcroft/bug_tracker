@@ -1,0 +1,90 @@
+<!-- todo_list/todo_app/templates/todo_app/project.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<div>
+    <div>
+        <div>
+            <h4 class="px-4 text-center">Your Assigned Bugs</h4>
+        </div>
+        <div class="container w-75 vertical-center">
+        <table class="table table-striped table-info table-hover">
+
+            <tr>
+                <th>Bug</th>
+                <th>Completed</th>
+                <th>Assigned to</th>
+                <th>Urgency</th>
+                <th></th>
+            </tr>
+<!--Loop through to-do items in list and add as row in table-->
+            {% for bug in object_list %}
+            <tr>
+                <td>
+                    {{bug.title}}
+                </td>
+                <!--Check completion status and mark column with a tick or a cross-->
+                <td>
+                    {% if not bug.completed %}
+                        <i class="fa-solid fa-x"></i>
+                    {% else %}
+                        <i class="fa-solid fa-check"></i>
+                    {% endif %}
+                </td>
+                <td>
+                    {{bug.assignee}}
+                </td>
+                <td>
+                    {% if bug.urgency == "HI" %}
+                        <p
+                            type="button"
+                            class="btn btn-danger">
+                            High
+                        </p>
+                    {% elif bug.urgency == "MED" %}
+                        <p
+                            type="button"
+                            class="btn btn-warning">
+                            Medium
+                        </p>
+                    {% elif bug.urgency == "LOW" %}
+                        <p
+                            type="button"
+                            class="btn btn-success">
+                            Low
+                        </p>
+                    {% endif %}
+
+                </td>
+                <!--Update item button-->
+
+                <td align="right">
+                    <a
+                        type="button"
+                        class="btn btn-primary"
+                        onclick="location.href='{% url "bug-detail" bug.project_id bug.id %}'" >
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </a>
+                    {% if request.user == bug.reporter or request.user == bug.assignee %}
+                        <a
+                            type="button"
+                            class="btn btn-primary"
+                            onclick="location.href='{% url "bug-update" bug.project_id bug.id %}'" >
+                            <i class="fa-solid fa-pen"></i>
+                        </a>
+                    {% endif %}
+                </td>
+            </tr>
+            <!--If there are no to-do items in the list-->
+            {% empty %}
+            <tr>
+                <p>There are no bugs in this list.</p>
+            </tr>
+            {% endfor %}
+            <!--Buttons to add item or delete list-->
+        </table>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

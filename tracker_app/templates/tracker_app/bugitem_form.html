@@ -1,0 +1,33 @@
+<!-- todo_list/todo_app/templates/todo_app/bugitem_form.html -->
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card w-50 mx-auto border-primary">
+    <div class="card-header text-center">
+        <h3 class="px-4 text-center">{{ title }} in {{project.title}}</h3>
+    </div>
+    <form method="post" class="m-4">
+        {% csrf_token %}
+        <table class="p-4">
+            {{ form.as_table }}
+        </table>
+        <input
+            value="Submit"
+            type="submit"
+            class="btn btn-primary">
+        <input
+            value="Cancel"
+            type="button"
+            class="btn btn-danger"
+            onclick="location.href='{% url "project" project.id %}'">
+        {% if object %}
+            <input
+                value="Delete this item"
+                type="button"
+                class="btn btn-danger"
+                onclick="location.href='{% url "bug-delete" project.id object.id %}'">
+        {% endif %}
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+<!-- todo_list/todo_app/templates/todo_app/projectlist_form.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card w-50 mx-auto border-primary">
+    <div class="card-header text-center">
+        <h3>{{ title }}</h3>
+    </div>
+        <form method="post" class="p-4 text-center">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input
+                value="Save"
+                type="submit"
+                class="btn btn-primary">
+            <input
+                value="Cancel"
+                type="button"
+                class="btn btn-danger"
+                onclick="location.href='{% url "index" %}';">
+        </form>
+</div>
+
+{% endblock %}
